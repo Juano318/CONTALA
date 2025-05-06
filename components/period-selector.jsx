@@ -14,13 +14,13 @@ export default function PeriodSelector({
   ];
 
   return (
-    <div className="flex flex-wrap gap-2 p-4">
+    <div className="flex flex-nowrap overflow-x-auto gap-2 p-4 no-scrollbar">
       {periods.map((period) => (
         <Button
           key={period}
           variant={selectedPeriod === period ? "default" : "outline"}
           onClick={() => onSelectPeriod(period)}
-          className={`rounded-lg hover:bg-blue-100 hover:text-blue-600 transition-colors ${
+          className={`rounded-lg hover:bg-blue-100 hover:text-blue-600 transition-colors whitespace-nowrap ${
             selectedPeriod === period ? "bg-blue-100 text-blue-600" : ""
           }`}
         >
@@ -30,7 +30,7 @@ export default function PeriodSelector({
       <Button
         variant="outline"
         size="sm"
-        className="flex items-center gap-1 rounded-lg hover:bg-blue-100 hover:text-blue-600 transition-colors"
+        className="flex items-center gap-1 rounded-lg hover:bg-blue-100 hover:text-blue-600 transition-colors px-3 whitespace-nowrap"
       >
         <Calendar className="w-4 h-4" />
         <span>Seleccionar período</span>
