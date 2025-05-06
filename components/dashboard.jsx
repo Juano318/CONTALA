@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Navbar from "./navbar"
-import FinancialSummary from "./financial-summary"
-import ActionButtons from "./action-buttons"
-import ExpenseCategories from "./expense-categories"
-import RecentActivity from "./recent-activity"
-import PeriodSelector from "./period-selector"
-import AddTransactionModal from "./add-transaction-modal"
+import { useState } from "react";
+import Navbar from "./navbar";
+import FinancialSummary from "./financial-summary";
+import ActionButtons from "./action-buttons";
+import ExpenseCategories from "./expense-categories";
+import RecentActivity from "./recent-activity";
+import PeriodSelector from "./period-selector";
+import AddTransactionModal from "./add-transaction-modal";
 
 export default function Dashboard() {
-  const [selectedPeriod, setSelectedPeriod] = useState("Mes actual")
-  const [showAddIncomeModal, setShowAddIncomeModal] = useState(false)
-  const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
+  const [selectedPeriod, setSelectedPeriod] = useState("Mes actual");
+  const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
+  const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
   const [transactions, setTransactions] = useState([
     {
       id: 1,
@@ -77,7 +77,7 @@ export default function Dashboard() {
       amount: -57500,
       type: "expense",
     },
-  ])
+  ]);
 
   const financialData = {
     balance: 546230,
@@ -86,14 +86,14 @@ export default function Dashboard() {
     balanceChange: 12.5,
     incomeChange: 0,
     expensesChange: -15,
-  }
+  };
 
   const categoryData = [
-    { name: "Necesidades", percentage: 41.35, color: "bg-purple-500" },
-    { name: "Deseos", percentage: 21.51, color: "bg-red-500" },
-    { name: "Ahorro", percentage: 20, color: "bg-blue-500" },
-    { name: "Otros", percentage: 17.14, color: "bg-gray-300" },
-  ]
+    { name: "Necesidades", percentage: 35, color: "bg-purple-500" },
+    { name: "Deseos", percentage: 20, color: "bg-red-500" },
+    { name: "Ahorro", percentage: 25, color: "bg-blue-500" },
+    { name: "No gastado", percentage: 20, color: "bg-gray-300" },
+  ];
 
   const handleAddTransaction = (newTransaction) => {
     const updatedTransactions = [
@@ -103,19 +103,19 @@ export default function Dashboard() {
         date: new Date().toLocaleDateString("es-AR"),
       },
       ...transactions,
-    ]
+    ];
 
-    setTransactions(updatedTransactions)
+    setTransactions(updatedTransactions);
 
     // Update financial summary based on transaction type
     if (newTransaction.type === "income") {
-      financialData.income += newTransaction.amount
-      financialData.balance += newTransaction.amount
+      financialData.income += newTransaction.amount;
+      financialData.balance += newTransaction.amount;
     } else {
-      financialData.expenses += Math.abs(newTransaction.amount)
-      financialData.balance -= Math.abs(newTransaction.amount)
+      financialData.expenses += Math.abs(newTransaction.amount);
+      financialData.balance -= Math.abs(newTransaction.amount);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -123,7 +123,10 @@ export default function Dashboard() {
       <main className="container mx-auto px-4 py-6 max-w-7xl">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-700">Hola, Lucas!</h1>
-          <PeriodSelector selectedPeriod={selectedPeriod} onSelectPeriod={setSelectedPeriod} />
+          <PeriodSelector
+            selectedPeriod={selectedPeriod}
+            onSelectPeriod={setSelectedPeriod}
+          />
         </div>
 
         <FinancialSummary data={financialData} />
@@ -153,5 +156,5 @@ export default function Dashboard() {
         onAddTransaction={handleAddTransaction}
       />
     </div>
-  )
+  );
 }
