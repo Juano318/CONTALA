@@ -1,26 +1,46 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-export default function AddTransactionModal({ isOpen, onClose, type, onAddTransaction }) {
-  const [description, setDescription] = useState("")
-  const [amount, setAmount] = useState("")
-  const [paymentMethod, setPaymentMethod] = useState("")
-  const [category, setCategory] = useState("")
+export default function AddTransactionModal({
+  isOpen,
+  onClose,
+  type,
+  onAddTransaction,
+}) {
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [category, setCategory] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!description || !amount || !paymentMethod) {
-      return
+      return;
     }
 
-    const parsedAmount = type === "income" ? Math.abs(Number.parseFloat(amount)) : -Math.abs(Number.parseFloat(amount))
+    const parsedAmount =
+      type === "income"
+        ? Math.abs(Number.parseFloat(amount))
+        : -Math.abs(Number.parseFloat(amount));
 
     onAddTransaction({
       description,
@@ -29,27 +49,37 @@ export default function AddTransactionModal({ isOpen, onClose, type, onAddTransa
       category,
       type,
       icon: description.substring(0, 2).toUpperCase(),
-    })
+    });
 
     // Reset form
-    setDescription("")
-    setAmount("")
-    setPaymentMethod("")
-    setCategory("")
+    setDescription("");
+    setAmount("");
+    setPaymentMethod("");
+    setCategory("");
 
-    onClose()
-  }
+    onClose();
+  };
 
-  const paymentMethods = ["Efectivo", "Mercado Pago", "Banco Galicia", "Visa ****8216", "Visa ****9182"]
+  const paymentMethods = [
+    "Efectivo",
+    "Mercado Pago",
+    "Banco Galicia",
+    "Visa ****8216",
+    "Visa ****9182",
+  ];
 
   const categories =
-    type === "expense" ? ["Necesidades", "Deseos", "Ahorro", "Otros"] : ["Sueldo", "Freelance", "Inversiones", "Otros"]
+    type === "expense"
+      ? ["Necesidades", "Deseos", "Ahorro", "Disponible"]
+      : ["Sueldo", "Freelance", "Inversiones", "Disponible"];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{type === "income" ? "Agregar ingreso" : "Agregar egreso"}</DialogTitle>
+          <DialogTitle>
+            {type === "income" ? "Agregar ingreso" : "Agregar egreso"}
+          </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
@@ -82,7 +112,11 @@ export default function AddTransactionModal({ isOpen, onClose, type, onAddTransa
 
           <div className="space-y-2">
             <Label htmlFor="payment-method">Método de pago</Label>
-            <Select value={paymentMethod} onValueChange={setPaymentMethod} required>
+            <Select
+              value={paymentMethod}
+              onValueChange={setPaymentMethod}
+              required
+            >
               <SelectTrigger id="payment-method">
                 <SelectValue placeholder="Seleccionar método de pago" />
               </SelectTrigger>
@@ -118,7 +152,11 @@ export default function AddTransactionModal({ isOpen, onClose, type, onAddTransa
             </Button>
             <Button
               type="submit"
-              className={type === "income" ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"}
+              className={
+                type === "income"
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-red-600 hover:bg-red-700"
+              }
             >
               {type === "income" ? "Agregar ingreso" : "Agregar egreso"}
             </Button>
@@ -126,5 +164,5 @@ export default function AddTransactionModal({ isOpen, onClose, type, onAddTransa
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

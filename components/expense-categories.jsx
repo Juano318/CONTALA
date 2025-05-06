@@ -56,7 +56,7 @@ export default function ExpenseCategories({ categories }) {
         return "#ef4444"; // red-500
       case "Ahorro":
         return "#3b82f6"; // blue-500
-      case "No gastado":
+      case "Disponible":
         return "#d1d5db"; // gray-300
       default:
         return "#d1d5db"; // gray-300
@@ -71,7 +71,7 @@ export default function ExpenseCategories({ categories }) {
         return <Heart className="w-4 h-4 text-white p-2" />;
       case "Ahorro":
         return <PiggyBank className="w-4 h-4 text-white p-2" />;
-      case "No gastado":
+      case "Disponible":
         return <Wallet className="w-4 h-4 text-white p-2" />;
       default:
         return null;
