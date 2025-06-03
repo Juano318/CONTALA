@@ -2,7 +2,7 @@
 
 import MovementsNavbar from "../../components/movements-navbar";
 import BackHomeButton from "../../components/ui/back-home-button";
-
+import Navbar from "@/components/navbar";
 export default function MovimientosPage() {
   const handleFilterChange = (value) => {
     console.log("Filter changed:", value);
@@ -18,6 +18,7 @@ export default function MovimientosPage() {
 
   return (
     <main>
+      <Navbar />
       <MovementsNavbar
         onFilterChange={handleFilterChange}
         onSortChange={handleSortChange}

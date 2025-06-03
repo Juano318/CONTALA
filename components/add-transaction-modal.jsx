@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 export default function AddTransactionModal({
   isOpen,
@@ -27,36 +28,27 @@ export default function AddTransactionModal({
 }) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const [category, setCategory] = useState("");
+  const [date, setDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!description || !amount || !paymentMethod) {
+    if (!description || !amount || !date) {
       return;
     }
-
     const parsedAmount =
       type === "income"
         ? Math.abs(Number.parseFloat(amount))
         : -Math.abs(Number.parseFloat(amount));
-
     onAddTransaction({
       description,
       amount: parsedAmount,
-      paymentMethod,
-      category,
+      date,
       type,
       icon: description.substring(0, 2).toUpperCase(),
     });
-
-    // Reset form
     setDescription("");
     setAmount("");
-    setPaymentMethod("");
-    setCategory("");
-
+    setDate("");
     onClose();
   };
 
@@ -75,25 +67,25 @@ export default function AddTransactionModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="fixed left-[50%] top-[50%] z-[9999] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white text-gray-900 p-6 shadow-lg duration-200">
         <DialogHeader>
           <DialogTitle>
             {type === "income" ? "Agregar ingreso" : "Agregar egreso"}
           </DialogTitle>
         </DialogHeader>
-
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="description">Descripción</Label>
+            <Label htmlFor="description">
+              {type === "income" ? "Origen del ingreso" : "Motivo del egreso"}
+            </Label>
             <Input
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Ej: Sueldo, Alquiler, etc."
+              placeholder={type === "income" ? "Ej: Sueldo, Venta, etc." : "Ej: Alquiler, Comida, etc."}
               required
             />
           </div>
-
           <div className="space-y-2">
             <Label htmlFor="amount">Monto</Label>
             <div className="relative">
@@ -109,43 +101,16 @@ export default function AddTransactionModal({
               />
             </div>
           </div>
-
           <div className="space-y-2">
-            <Label htmlFor="payment-method">Método de pago</Label>
-            <Select
-              value={paymentMethod}
-              onValueChange={setPaymentMethod}
+            <Label htmlFor="date">Fecha</Label>
+            <Input
+              id="date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               required
-            >
-              <SelectTrigger id="payment-method">
-                <SelectValue placeholder="Seleccionar método de pago" />
-              </SelectTrigger>
-              <SelectContent>
-                {paymentMethods.map((method) => (
-                  <SelectItem key={method} value={method}>
-                    {method}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            />
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="category">Categoría</Label>
-            <Select value={category} onValueChange={setCategory} required>
-              <SelectTrigger id="category">
-                <SelectValue placeholder="Seleccionar categoría" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((cat) => (
-                  <SelectItem key={cat} value={cat}>
-                    {cat}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
           <DialogFooter className="pt-4">
             <Button type="button" variant="outline" onClick={onClose}>
               Cancelar

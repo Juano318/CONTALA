@@ -1,7 +1,6 @@
 import { Settings, Bell } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 export default function Navbar() {
   const pathname = usePathname();
 
@@ -15,24 +14,14 @@ export default function Navbar() {
               className="flex items-center justify-center w-10 h-10"
             >
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-5 h-5 text-blue-500"
-                >
-                  <path d="M20 16.2A8 8 0 1 1 4 16.2" />
-                  <path d="M12 16v4" />
-                  <path d="M8 16l4-4 4 4" />
-                </svg>
+                <img
+                  src= "/contalaLogo.png"
+                  alt="Logo"
+                  className="w-10 h-10 rounded-full"
+                />
               </div>
             </Link>
           </div>
-
           <div className="hidden md:flex items-center space-x-8">
             <NavLink href="/" active={pathname === "/"}>
               Inicio

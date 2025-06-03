@@ -79,14 +79,14 @@ export default function Dashboard() {
     },
   ]);
 
-  const financialData = {
+  const [financialData, setFinancialData] = useState({
     balance: 546230,
     income: 1000000,
     expenses: 453770,
     balanceChange: 12.5,
     incomeChange: 0,
     expensesChange: -15,
-  };
+  });
 
   const categoryData = [
     { name: "Necesidades", percentage: 35, color: "bg-purple-500" },
@@ -100,21 +100,26 @@ export default function Dashboard() {
       {
         id: transactions.length + 1,
         ...newTransaction,
-        date: new Date().toLocaleDateString("es-AR"),
       },
       ...transactions,
     ];
-
     setTransactions(updatedTransactions);
 
-    // Update financial summary based on transaction type
-    if (newTransaction.type === "income") {
-      financialData.income += newTransaction.amount;
-      financialData.balance += newTransaction.amount;
-    } else {
-      financialData.expenses += Math.abs(newTransaction.amount);
-      financialData.balance -= Math.abs(newTransaction.amount);
-    }
+    setFinancialData((prev) => {
+      if (newTransaction.type === "income") {
+        return {
+          ...prev,
+          income: prev.income + Math.abs(newTransaction.amount),
+          balance: prev.balance + Math.abs(newTransaction.amount),
+        };
+      } else {
+        return {
+          ...prev,
+          expenses: prev.expenses + Math.abs(newTransaction.amount),
+          balance: prev.balance - Math.abs(newTransaction.amount),
+        };
+      }
+    });
   };
 
   return (

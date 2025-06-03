@@ -1,8 +1,7 @@
 "use client";
-
+import Navbar from "@/components/navbar";
 import BackHomeButton from "../../components/ui/back-home-button";
 import {
-  BarChart,
   PieChart,
   TrendingUp,
   DollarSign,
@@ -50,6 +49,7 @@ export default function InformesPage() {
 
   return (
     <main className="min-h-screen bg-gray-50">
+      <Navbar />
       <div className="container mx-auto max-w-7xl py-6 px-4">
         <div className="mb-6">
           <BackHomeButton />
@@ -117,8 +117,8 @@ export default function InformesPage() {
                   outerRadius={100}
                   fill="#8884d8"
                   dataKey="value"
-                  label={({ name, percent }) =>
-                    `${name} ${(percent * 100).toFixed(0)}%`
+                  label={({ percent }) =>
+                    `${(percent * 100).toFixed(0)}%`
                   }
                 >
                   {ingresosVsEgresos.map((entry, index) => (
