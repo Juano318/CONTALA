@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { TransactionProvider } from "@/context/TransactionContext"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -15,7 +16,9 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
+          <TransactionProvider>
+            {children}
+          </TransactionProvider>
         </ThemeProvider>
       </body>
     </html>

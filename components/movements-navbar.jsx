@@ -37,9 +37,6 @@ export default function MovementsNavbar({
                 <Calendar className="w-4 h-4" />
                 <span>Rango de fechas</span>
               </button>
-              <button onClick={() => onMainPage()}>
-                <span>Inicio</span>
-              </button>
             </div>
           </div>
 

@@ -2,6 +2,7 @@
 import Navbar from "@/components/navbar";
 import BackHomeButton from "../../components/ui/back-home-button";
 import {
+  BarChart,
   PieChart,
   TrendingUp,
   DollarSign,

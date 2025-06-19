@@ -10,7 +10,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-1">
             <Link
-              href="/"
+              href="/home"
               className="flex items-center justify-center w-10 h-10"
             >
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
@@ -23,7 +23,7 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-8">
-            <NavLink href="/" active={pathname === "/"}>
+            <NavLink href="/home" active={pathname === "/home"}>
               Inicio
             </NavLink>
             <NavLink href="/movimientos" active={pathname === "/movimientos"}>
