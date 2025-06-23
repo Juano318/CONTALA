@@ -5,16 +5,6 @@ const TransactionContext = createContext();
 
 export function TransactionProvider({ children }) {
   const [transactions, setTransactions] = useState([
-    {
-      id: 1,
-      icon: "JC",
-      description: "Juan Cañavate",
-      paymentMethod: "Mercado Pago",
-      date: "28/04/2025",
-      amount: 20000,
-      type: "income",
-    },
-    // ... resto de tus transacciones iniciales
   ]);
 
   const financialData = useMemo(() => {

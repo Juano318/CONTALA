@@ -3,9 +3,12 @@
 import MovementsNavbar from "./movements-navbar";
 import Navbar from "@/components/navbar";
 import { useTransactions } from "@/context/TransactionContext";
+import AddTransactionModal from "@/components/add-transaction-modal";
+import { useState } from "react";
 
 export default function MovimientosPage() {
-  const { transactions } = useTransactions();
+  const { transactions, financialData, handleAddTransaction } = useTransactions();
+  const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
 
   const handleFilterChange = (value) => {
     console.log("Filter changed:", value);
@@ -45,6 +48,12 @@ export default function MovimientosPage() {
           </div>
         </div>
       </div>
+      <AddTransactionModal
+        isOpen={showAddIncomeModal}
+        onClose={() => setShowAddIncomeModal(false)}
+        type="income"
+        onAddTransaction={handleAddTransaction}
+      />
     </main>
   );
 }
